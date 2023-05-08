@@ -17,8 +17,17 @@ const ProductList = () => {
 	const [sort, setSort] = useState({ to: '', name: '' })
 	const [modal, setModal] = useState(false)
 	const [editModal, setEditModal] = useState(false)
+	const [search, setSearch] = useState('')
 
 	const { products } = useSelector(state => state.products)
+
+	function handleSearch() {
+		const newProducts = products.filter(item => {
+			return item.name.toLowerCase().indexOf(search.toLowerCase()) !== -1
+		})
+
+		return newProducts
+	}
 
 	return (
 		<>
@@ -48,9 +57,10 @@ const ProductList = () => {
 						</div>
 						<input
 							type='text'
+							onChange={e => setSearch(e.target.value)}
 							id='table-search'
 							className='block p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 max-[530px]:w-full dark:focus:border-blue-500'
-							placeholder='Search htmlFor items'
+							placeholder='Search products'
 						/>
 					</div>
 					<div className=' flex gap-4 max-[530px]:w-full justify-end'>
@@ -116,7 +126,7 @@ const ProductList = () => {
 					</tbody>
 				</table>
 				<div className='flex-wrap justify-between max-[530px]:justify-center gap-y-10 hidden max-[785px]:flex '>
-					{products?.map(product => (
+					{handleSearch().map(product => (
 						<AdaptiveProduct
 							setEditModal={setEditModal}
 							key={product.id}

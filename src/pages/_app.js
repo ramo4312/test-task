@@ -4,6 +4,7 @@ import { Provider } from 'react-redux'
 import Head from 'next/head'
 import { PersistGate } from 'redux-persist/integration/react'
 import { persistor, store } from '@/store/store'
+import Layout from '@/components/layout/Layout'
 // import { ThemeProvider } from '@material-tailwind/react'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -16,7 +17,9 @@ export default function App({ Component, pageProps }) {
 			</Head>
 			<PersistGate loading={null} persistor={persistor}>
 				<Provider store={store}>
-					<Component {...pageProps} />
+					<Layout>
+						<Component {...pageProps} />
+					</Layout>
 				</Provider>
 			</PersistGate>
 		</main>

@@ -26,7 +26,7 @@ const Nav = () => {
 			<Navbar.Toggle />
 			<Navbar.Collapse>
 				<Navbar.Link href='/'>Home</Navbar.Link>
-				<Navbar.Link href='/auth'>Authorization</Navbar.Link>
+				<Navbar.Link href='/products'>Products</Navbar.Link>
 			</Navbar.Collapse>
 		</Navbar>
 	)

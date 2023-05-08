@@ -1,5 +1,6 @@
 import { deleteProduct, productDetail } from '@/store/apiCalls'
 import Image from 'next/image'
+import { useRouter } from 'next/router'
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 
@@ -15,12 +16,17 @@ const AdaptiveProduct = ({ product, setEditModal }) => {
 
 	const dispatch = useDispatch()
 
+	const { push } = useRouter()
+
 	function handleDelete(id) {
 		deleteProduct(dispatch, id)
 	}
 
 	return (
-		<div className='w-[47%] max-[530px]:w-5/6 bg-indigo-950 active:translate-y-[0.5px] select-none hover:duration-300 duration-200 active:shadow-[0_10px_40px_-25px_white] hover:-translate-y-[0.5px] hover:shadow-[0_18px_40px_-15px_white] p-6 rounded-xl relative'>
+		<div
+			className='w-[47%] max-[530px]:w-5/6 bg-gray-800 active:translate-y-[0.5px] select-none hover:duration-300 duration-200 active:shadow-[0_10px_40px_-25px_white] hover:-translate-y-[0.5px] hover:shadow-[0_18px_40px_-15px_white] p-6 rounded-xl relative'
+			onClick={() => push(`/product/${product.id}`)}
+		>
 			<div
 				onMouseLeave={() => setOptions(false)}
 				className={`absolute ${
@@ -43,20 +49,20 @@ const AdaptiveProduct = ({ product, setEditModal }) => {
 					Delete
 				</button>
 			</div>
+			<div className='mb-4 flex justify-end'>
+				<Image
+					src='/options.svg'
+					onClick={e => {
+						setOptions(!options)
+						e.stopPropagation()
+					}}
+					className='cursor-pointer rounded-lg p-1 active:bg-slate-900'
+					width={25}
+					height={25}
+					alt=''
+				/>
+			</div>
 			<table className=' w-full text-white mb-3 '>
-				<div className='mb-4 flex justify-end'>
-					<Image
-						src='/options.svg'
-						onClick={e => {
-							setOptions(!options)
-							e.stopPropagation()
-						}}
-						className='cursor-pointer rounded-lg p-1 active:bg-slate-900'
-						width={25}
-						height={25}
-						alt=''
-					/>
-				</div>
 				<thead></thead>
 				<tbody className='flex flex-col gap-y-4'>
 					{productObject.map(item => (
