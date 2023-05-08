@@ -91,74 +91,82 @@ const ProductList = () => {
 						</button>
 					</div>
 				</div>
-				<table className='border-collapse rounded-2xl overflow-hidden w-full max-[785px]:hidden text-sm text-left text-gray-500 dark:text-gray-400 '>
-					<thead className='text-xs  text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400'>
-						<tr>
-							<th
-								onClick={e => {
-									e.stopPropagation()
-									if (sort == '') setSort('a-b')
-									else if (sort == 'a-b') setSort('b-a')
-									else if (sort == 'b-a') setSort('a-b')
-								}}
-								scope='col'
-								className='px-6 py-3 select-none active:bg-slate-400 cursor-pointer active:duration-200 duration-200 active:text-slate-900 hover:bg-slate-500 hover:text-slate-800'
-							>
-								<div className='flex gap-2 items-center'>
-									<p>Наименование</p>
-									{sort ? (
-										<Image
-											src='/arrow.svg'
-											className={`duration-300 ${
-												sort == 'a-b'
-													? 'rotate-0 translate-y-1'
-													: 'rotate-180 -translate-y-1'
-											}`}
-											width={15}
-											height={15}
-											alt=''
-										/>
-									) : null}
-								</div>
-							</th>
-							{sorts.map(item => (
-								<th
-									key={item.id}
-									scope='col'
-									className='px-6 py-3 select-none active:bg-slate-400 cursor-pointer active:duration-200 duration-200 active:text-slate-900 hover:bg-slate-500 hover:text-slate-800'
-								>
-									<div className='flex gap-2 items-center'>
-										<p>{item.label}</p>
-									</div>
-								</th>
+				{products.length !== 0 ? (
+					<>
+						<table className='border-collapse rounded-2xl overflow-hidden w-full max-[785px]:hidden text-sm text-left text-gray-500 dark:text-gray-400 '>
+							<thead className='text-xs  text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400'>
+								<tr>
+									<th
+										onClick={e => {
+											e.stopPropagation()
+											if (sort == '') setSort('a-b')
+											else if (sort == 'a-b') setSort('b-a')
+											else if (sort == 'b-a') setSort('a-b')
+										}}
+										scope='col'
+										className='px-6 py-3 select-none active:bg-slate-400 cursor-pointer active:duration-200 duration-200 active:text-slate-900 hover:bg-slate-500 hover:text-slate-800'
+									>
+										<div className='flex gap-2 items-center'>
+											<p>Наименование</p>
+											{sort ? (
+												<Image
+													src='/arrow.svg'
+													className={`duration-300 ${
+														sort == 'a-b'
+															? 'rotate-0 translate-y-1'
+															: 'rotate-180 -translate-y-1'
+													}`}
+													width={15}
+													height={15}
+													alt=''
+												/>
+											) : null}
+										</div>
+									</th>
+									{sorts.map(item => (
+										<th
+											key={item.id}
+											scope='col'
+											className='px-6 py-3 select-none active:bg-slate-400 cursor-pointer active:duration-200 duration-200 active:text-slate-900 hover:bg-slate-500 hover:text-slate-800'
+										>
+											<div className='flex gap-2 items-center'>
+												<p>{item.label}</p>
+											</div>
+										</th>
+									))}
+									<th
+										scope='col'
+										className='px-6 py-3 select-none active:bg-slate-400 cursor-pointer active:duration-200 duration-200 active:text-slate-900 hover:bg-slate-500 hover:text-slate-800'
+									>
+										Действия
+									</th>
+								</tr>
+							</thead>
+							<tbody className='rounded-xl'>
+								{handleSearch()?.map(product => (
+									<Product
+										key={product.id}
+										setEditModal={setEditModal}
+										product={product}
+									/>
+								))}
+							</tbody>
+						</table>
+						<div className='flex-wrap justify-between max-[530px]:justify-center gap-y-10 hidden max-[785px]:flex '>
+							{handleSearch().map(product => (
+								<AdaptiveProduct
+									setEditModal={setEditModal}
+									key={product.id}
+									product={product}
+								/>
 							))}
-							<th
-								scope='col'
-								className='px-6 py-3 select-none active:bg-slate-400 cursor-pointer active:duration-200 duration-200 active:text-slate-900 hover:bg-slate-500 hover:text-slate-800'
-							>
-								Действия
-							</th>
-						</tr>
-					</thead>
-					<tbody className='rounded-xl'>
-						{products?.map(product => (
-							<Product
-								key={product.id}
-								setEditModal={setEditModal}
-								product={product}
-							/>
-						))}
-					</tbody>
-				</table>
-				<div className='flex-wrap justify-between max-[530px]:justify-center gap-y-10 hidden max-[785px]:flex '>
-					{handleSearch().map(product => (
-						<AdaptiveProduct
-							setEditModal={setEditModal}
-							key={product.id}
-							product={product}
-						/>
-					))}
-				</div>
+						</div>
+					</>
+				) : (
+					<h2 className='text-center text-white text-4xl font-black'>
+						Товары не найдены
+					</h2>
+				)}
 			</div>
 		</>
 	)
