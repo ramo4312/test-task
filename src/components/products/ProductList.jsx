@@ -57,7 +57,7 @@ const ProductList = () => {
 				onClick={() => setSort('')}
 			>
 				<div className='pb-4 mb-11 max-[530px]:flex-col bg-white dark:bg-gray-900 flex justify-between items-center gap-y-5'>
-					<div className='relative mt-1 w-full'>
+					<div className='relative max-[530px]:w-full'>
 						<div className='absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none w-full'>
 							<svg
 								className='w-5 h-5 text-gray-500 dark:text-gray-400'
@@ -81,17 +81,17 @@ const ProductList = () => {
 							placeholder='Search products'
 						/>
 					</div>
-					<div className=' flex gap-4 max-[530px]:w-full justify-end'>
+					<div className=' flex gap-x-4 max-[530px]:w-full justify-end'>
 						<button
 							type='button'
-							className='text-gray-900 bg-gradient-to-r from-lime-200 via-lime-400 to-lime-500 hover:bg-gradient-to-br focus:outline-none focus:ring-lime-300 shadow-lg shadow-lime-500/50 dark:shadow-lg dark:shadow-lime-800/80 font-medium rounded-lg px-7 py-1.5 text-center text-lg active:translate-y-1 active:shadow-none duration-200 active:duration-200'
+							className='text-gray-900 bg-gradient-to-r from-lime-200 via-lime-400 to-lime-500 hover:bg-gradient-to-br focus:outline-none focus:ring-lime-300 shadow-lg shadow-lime-500/50 dark:shadow-lg dark:shadow-lime-800/80 font-medium rounded-lg px-7 py-[5px] text-center text-lg active:translate-y-1 active:shadow-none duration-200 active:duration-200'
 							onClick={() => setModal(!modal)}
 						>
 							Add
 						</button>
 					</div>
 				</div>
-				<table className='w-full max-[785px]:hidden text-sm text-left text-gray-500 dark:text-gray-400 '>
+				<table className='border-collapse rounded-2xl overflow-hidden w-full max-[785px]:hidden text-sm text-left text-gray-500 dark:text-gray-400 '>
 					<thead className='text-xs  text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400'>
 						<tr>
 							<th

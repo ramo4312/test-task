@@ -24,7 +24,7 @@ const AdaptiveProduct = ({ product, setEditModal }) => {
 
 	return (
 		<div
-			className='w-[47%] max-[530px]:w-5/6 bg-gray-800 active:translate-y-[0.5px] select-none hover:duration-300 duration-200 active:shadow-[0_10px_40px_-25px_white] hover:-translate-y-[0.5px] hover:shadow-[0_18px_40px_-15px_white] p-6 rounded-xl relative'
+			className='w-[47%] max-[530px]:w-5/6 max-[404px]:w-full bg-gray-800 active:translate-y-[0.5px] select-none hover:duration-300 duration-200 active:shadow-[0_10px_40px_-25px_white] hover:-translate-y-[0.5px] hover:shadow-[0_18px_40px_-15px_white] p-6 rounded-xl relative'
 			onClick={() => push(`/product/${product.id}`)}
 		>
 			<div
