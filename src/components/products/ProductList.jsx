@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import { useSelector } from 'react-redux'
 import Product from './Product'
@@ -7,14 +7,13 @@ import EditModal from '../modals/editModal'
 import AdaptiveProduct from './AdaptiveProduct'
 
 const sorts = [
-	{ id: 1, name: 'name', label: 'Наименование' },
-	{ id: 2, name: 'vendorCode', label: 'Артикул' },
-	{ id: 3, name: 'count', label: 'Количество' },
-	{ id: 4, name: 'price', label: 'Стоимость' },
+	{ id: 1, name: 'vendorCode', label: 'Артикул' },
+	{ id: 2, name: 'count', label: 'Количество' },
+	{ id: 3, name: 'price', label: 'Стоимость' },
 ]
 
 const ProductList = () => {
-	const [sort, setSort] = useState({ to: '', name: '' })
+	const [sort, setSort] = useState('')
 	const [modal, setModal] = useState(false)
 	const [editModal, setEditModal] = useState(false)
 	const [search, setSearch] = useState('')
@@ -29,6 +28,24 @@ const ProductList = () => {
 		return newProducts
 	}
 
+	function handleSort() {
+		if (sort == 'a-b') {
+			products.sort((prev, next) => {
+				if (prev.name < next.name) return 1
+				if (prev.name > next.name) return -1
+			})
+		} else if (sort == 'b-a') {
+			products.sort((prev, next) => {
+				if (prev.name > next.name) return 1
+				if (prev.name < next.name) return -1
+			})
+		}
+	}
+
+	useEffect(() => {
+		handleSort()
+	}, [sort])
+
 	return (
 		<>
 			<EditModal modal={editModal} setModal={setEditModal} />
@@ -37,6 +54,7 @@ const ProductList = () => {
 				className={`relative shadow-md ${
 					products.length < 7 ? 'h-[77.2vh]' : ''
 				} dark:bg-gray-900 py-11 px-9`}
+				onClick={() => setSort('')}
 			>
 				<div className='pb-4 mb-11 max-[530px]:flex-col bg-white dark:bg-gray-900 flex justify-between items-center gap-y-5'>
 					<div className='relative mt-1 w-full'>
@@ -76,34 +94,41 @@ const ProductList = () => {
 				<table className='w-full max-[785px]:hidden text-sm text-left text-gray-500 dark:text-gray-400 '>
 					<thead className='text-xs  text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400'>
 						<tr>
+							<th
+								onClick={e => {
+									e.stopPropagation()
+									if (sort == '') setSort('a-b')
+									else if (sort == 'a-b') setSort('b-a')
+									else if (sort == 'b-a') setSort('a-b')
+								}}
+								scope='col'
+								className='px-6 py-3 select-none active:bg-slate-400 cursor-pointer active:duration-200 duration-200 active:text-slate-900 hover:bg-slate-500 hover:text-slate-800'
+							>
+								<div className='flex gap-2 items-center'>
+									<p>Наименование</p>
+									{sort ? (
+										<Image
+											src='/arrow.svg'
+											className={`duration-300 ${
+												sort == 'a-b'
+													? 'rotate-0 translate-y-1'
+													: 'rotate-180 -translate-y-1'
+											}`}
+											width={15}
+											height={15}
+											alt=''
+										/>
+									) : null}
+								</div>
+							</th>
 							{sorts.map(item => (
 								<th
 									key={item.id}
-									onClick={() => {
-										if (sort.to == '') setSort({ to: 'a-b', name: item.name })
-										else if (sort.to == 'a-b')
-											setSort({ to: 'b-a', name: item.name })
-										else if (sort.to == 'b-a')
-											setSort({ to: 'a-b', name: item.name })
-									}}
 									scope='col'
 									className='px-6 py-3 select-none active:bg-slate-400 cursor-pointer active:duration-200 duration-200 active:text-slate-900 hover:bg-slate-500 hover:text-slate-800'
 								>
 									<div className='flex gap-2 items-center'>
 										<p>{item.label}</p>
-										{sort.name == item.name ? (
-											<Image
-												src='/arrow.svg'
-												className={`duration-300 ${
-													sort.to === 'a-b' && sort.name === item.name
-														? 'rotate-0 translate-y-1'
-														: 'rotate-180 -translate-y-1'
-												}`}
-												width={15}
-												height={15}
-												alt=''
-											/>
-										) : null}
 									</div>
 								</th>
 							))}
