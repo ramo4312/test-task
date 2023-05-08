@@ -1,4 +1,5 @@
 import { deleteProduct, productDetail } from '@/store/apiCalls'
+import Image from 'next/image'
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 
@@ -44,7 +45,7 @@ const AdaptiveProduct = ({ product, setEditModal }) => {
 			</div>
 			<table className=' w-full text-white mb-3 '>
 				<div className='mb-4 flex justify-end'>
-					<img
+					<Image
 						src='/options.svg'
 						onClick={e => {
 							setOptions(!options)
@@ -52,6 +53,7 @@ const AdaptiveProduct = ({ product, setEditModal }) => {
 						}}
 						className='cursor-pointer rounded-lg p-1 active:bg-slate-900'
 						width={25}
+						height={25}
 						alt=''
 					/>
 				</div>

@@ -73,18 +73,6 @@ export const productSlice = createSlice({
 		addAll: (state, action) => {
 			state.products = action.payload
 		},
-		select: (state, action) => {
-			state.selectedProducts.push(action.payload)
-			const uniqSet = new Set(state.selectedProducts)
-			const uniqArr = [...uniqSet]
-			state.selectedProducts = uniqArr
-		},
-		unSelect: (state, action) => {
-			state.selectedProducts.splice(
-				state.selectedProducts.findIndex(item => item === action.payload),
-				1
-			)
-		},
 	},
 })
 
@@ -102,7 +90,5 @@ export const {
 	updateSuccess,
 	updateFailure,
 	addAll,
-	unSelect,
-	select,
 } = productSlice.actions
 export default productSlice.reducer

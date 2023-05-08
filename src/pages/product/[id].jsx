@@ -9,12 +9,10 @@ const ProductPage = () => {
 	const dispatch = useDispatch()
 
 	const { query, push, back } = useRouter()
-	const router = useRouter()
 
-	// console.log(router)
 	useEffect(() => {
 		productDetail(dispatch, query.id)
-	}, [dispatch])
+	}, [dispatch, query.id])
 
 	function handleDelete(id) {
 		deleteProduct(dispatch, id, push)

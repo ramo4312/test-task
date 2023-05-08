@@ -1,4 +1,4 @@
-import { addProduct, updateProduct } from '@/store/apiCalls'
+import { updateProduct } from '@/store/apiCalls'
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 

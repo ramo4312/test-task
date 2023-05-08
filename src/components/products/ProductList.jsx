@@ -1,8 +1,7 @@
 import { useState } from 'react'
 import Image from 'next/image'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import Product from './Product'
-import { useRouter } from 'next/router'
 import Modal from '../modals/addModal'
 import EditModal from '../modals/editModal'
 import AdaptiveProduct from './AdaptiveProduct'
@@ -20,9 +19,6 @@ const ProductList = () => {
 	const [editModal, setEditModal] = useState(false)
 
 	const { products } = useSelector(state => state.products)
-	const dispatch = useDispatch()
-
-	const { push } = useRouter()
 
 	return (
 		<>

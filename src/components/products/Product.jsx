@@ -1,9 +1,4 @@
-import {
-	checkedDelete,
-	checkedProduct,
-	deleteProduct,
-	productDetail,
-} from '@/store/apiCalls'
+import { deleteProduct, productDetail } from '@/store/apiCalls'
 import { unSelect } from '@/store/productSlice'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
@@ -13,20 +8,11 @@ const Product = ({ product, setEditModal }) => {
 	const { push } = useRouter()
 	const dispatch = useDispatch()
 
-	function handleCheck(product) {
-		const newProduct = {
-			...product,
-			checked: !product.checked,
-		}
-
-		checkedProduct(dispatch, newProduct)
-	}
-
 	useEffect(() => {
 		if (product.checked === false) {
 			dispatch(unSelect(product.id))
 		}
-	}, [product])
+	}, [product, dispatch])
 
 	function handleDelete(id) {
 		deleteProduct(dispatch, id)

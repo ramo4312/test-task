@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import { useRouter } from 'next/router'
 
 const Footer = () => {
@@ -11,7 +12,13 @@ const Footer = () => {
 						onClick={() => push('/')}
 						className='flex items-center mb-4 sm:mb-0'
 					>
-						<img src='/logo.svg' className='h-8 mr-3' alt='Flowbite Logo' />
+						<Image
+							src='/logo.svg'
+							className='h-8 mr-3'
+							width={32}
+							height={32}
+							alt='Flowbite Logo'
+						/>
 						<span className='self-center text-2xl font-semibold whitespace-nowrap dark:text-white'>
 							Products
 						</span>
